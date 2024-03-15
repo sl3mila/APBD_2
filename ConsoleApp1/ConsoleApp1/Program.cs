@@ -4,13 +4,13 @@ int[] arr = new[] { 1, 2, 3, 4, 5 };
 Console.WriteLine("Hello,, World!!");;
 Console.WriteLine(GetAvg(arr));
 
-static double GetAvg(int[] arr)
+static double GetAvg(int[] array)
 {
     int sum = 0;
-    foreach (var num in arr)
+    foreach (var num in array)
     {
         sum += num;
     }
 
-    return (double)sum / arr.Length;
+    return (double)sum / array.Length;
 }

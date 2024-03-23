@@ -1,17 +1,27 @@
 ﻿
 namespace KonteneryApp;
 
-public abstract class Kontener(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, double maxLad)
+public abstract class Kontener
 {
-    private protected int numerSeryjny = numerSeryjny;
+    private protected int NumerSeryjny;
     public abstract string GetNumerSeryjny();
 
-    public double Masa { get; set; } = 0;
-    private protected double Wysokosc { get; } = wysokosc;
-    private protected double WagaWlasna { get; } = wagaWlasna;
-    private protected double Glebokosc { get; } = glebokosc;
-    private protected double MaxLad { get; } = maxLad;
+    public double Masa { get; set; }
+    private protected double Wysokosc { get; }
+    private protected double WagaWlasna { get; }
+    private protected double Glebokosc { get; }
+    private protected double MaxLad { get; }
 
+    protected Kontener(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, double maxLad)
+    {
+        Masa = 0;
+        NumerSeryjny = numerSeryjny;
+        Wysokosc = wysokosc;
+        WagaWlasna = wagaWlasna;
+        Glebokosc = glebokosc;
+        MaxLad = maxLad;
+    }
+    
     public void Info()
     {
         Console.WriteLine("Nunmer seryjny kontenera: " + GetNumerSeryjny() + 
@@ -31,7 +41,7 @@ public abstract class Kontener(int numerSeryjny, double wysokosc, double wagaWla
 
     public virtual void Zaladuj(double ladunek)
     {
-        if (ladunek + Masa > maxLad)
+        if (ladunek + Masa > MaxLad)
         {
             throw new OverfillException("Towar jest za duży");
 

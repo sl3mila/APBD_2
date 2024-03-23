@@ -51,5 +51,9 @@ kPlyny.Info();
 statek1.ZaladujNa(kPlyny);
 statek1.ZaladujNa(kGaz);
 statek1.ZaladujNa(kChlodniczy);
+statek1.Zamien("KON-L-012", kChlodniczy);
+
+statek1.naInnyPojazd(kChlodniczy, statek2);
 
 statek1.info();
+statek2.info();

@@ -16,7 +16,7 @@ public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double max
             Console.WriteLine("Za duża masa aby załadować");
             return;
         } 
-        if (!(maxIloscKontenerow <= Kontenery.Count))
+        if (maxIloscKontenerow <= Kontenery.Count)
         {
             Console.WriteLine("Pojazd pełny");
             return;

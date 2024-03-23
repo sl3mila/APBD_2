@@ -31,15 +31,12 @@ public abstract class Kontener(int numerSeryjny, double wysokosc, double wagaWla
 
     public void Zaladuj(double ladunek)
     {
-        if (ladunek + Masa <= maxLad)
+        if (ladunek + Masa > maxLad)
         {
-            Masa += ladunek;
-            Console.WriteLine("Ladunek załadowany na: "+ GetNumerSeryjny());
+            throw new OverfillException("Towar jest za duży");
 
         }
-        else
-        {
-            throw new OverfillException("Towar jest za duży");    //zrobić swój
-        }
+        Masa += ladunek;
+        Console.WriteLine("Ladunek załadowany na: "+ GetNumerSeryjny());
     }
 }

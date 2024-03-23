@@ -29,23 +29,20 @@ public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double max
 
     public void UsunZ(Kontener kontener)
     {
-        for (int i = 0; i <= Kontenery.Count; i++)
-        {
             Kontenery.Remove(kontener);
             //IloscKontenerow--;
             Console.WriteLine("Kontener "+ kontener.GetNumerSeryjny() + " usunięty");
-        }
     }
 
     public void Zamien(string zmieniany, Kontener naZmiane)
     {
-        for (int i = 0; i <= Kontenery.Count; i++)
+        for (int i = 0; i < Kontenery.Count; i++)
         {
             if (zmieniany.Equals(Kontenery[i].GetNumerSeryjny()))
             {
-                Kontenery[i] = naZmiane;
+                Kontenery.Remove(Kontenery[i]);
+                Kontenery.Add(naZmiane);
                 Console.WriteLine("Kontener zmieniony");
-
             }
         }
     }

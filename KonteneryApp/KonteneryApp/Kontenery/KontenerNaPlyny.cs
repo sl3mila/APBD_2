@@ -12,7 +12,7 @@ public class KontenerNaPlyny(int numerSeryjny, double wysokosc, double wagaWlasn
 
     public void Niebezpiecznie()
     {
-        Console.WriteLine("Niebezpieczna sytuacją w kontenarze o numerze: " + GetNumerSeryjny());
+        Console.WriteLine("Niebezpieczna sytuacją w kontenarze o numerze: " + GetNumerSeryjny() + "\n");
     }
     
     public void Info()

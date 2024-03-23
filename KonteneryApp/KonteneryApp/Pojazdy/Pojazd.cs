@@ -11,7 +11,7 @@ public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double max
     
     public void ZaladujNa(Kontener kontener)
     {
-        if (!(Masa + kontener.Masa < maxWagaKontenerow))
+        if (!( Kontenery.Sum(c => c.Masa) + kontener.Masa < maxWagaKontenerow))
         {
             Console.WriteLine("Za duża masa aby załadować");
             return;
@@ -22,7 +22,7 @@ public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double max
             return;
         }
         Kontenery.Add(kontener);
-        Masa += kontener.Masa;
+        //Masa += kontener.Masa;
         //IloscKontenerow++;
         Console.WriteLine("Kontener "+ kontener.GetNumerSeryjny() + " zaladowany");
     }
@@ -60,7 +60,7 @@ public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double max
         Console.WriteLine("Maksymalna prędkość: " + MaxPredkosc + 
                           "\nMaksymalna ilość kontenerów: " + MaxIloscKontenerow +
                           "\nMaksymalna waga kontenerów: " + MaxWagaKontenerow +
-                          "\nObecna załądowana masa: " + Masa +
-                          "\nIlość kontenerów: " + Kontenery.Count);
+                          "\nObecna załądowana masa: " + Kontenery.Sum(c => c.Masa) +
+                          "\nIlość kontenerów: " + Kontenery.Count + "\n");
     }
 }

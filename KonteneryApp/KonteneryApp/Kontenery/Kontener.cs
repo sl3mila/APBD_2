@@ -19,24 +19,26 @@ public abstract class Kontener(int numerSeryjny, double wysokosc, double wagaWla
                           "\nWaga własna: " + WagaWlasna +
                           "\nGłębokość: " + Glebokosc +
                           "\nMaksymalny waga ładunku: " + MaxLad + 
-                            "\nMasa ładunku: " + Masa );
+                            "\nMasa ładunku: " + Masa);
     }
 
-    public void Oproznienie()
+    public virtual void Oproznienie()
     {
         Masa = 0;
         Console.WriteLine("Kontener "+ GetNumerSeryjny() + " opróżniony");
 
     }
 
-    public void Zaladuj(double ladunek)
+    public virtual void Zaladuj(double ladunek)
     {
         if (ladunek + Masa > maxLad)
         {
             throw new OverfillException("Towar jest za duży");
 
         }
+        
         Masa += ladunek;
-        Console.WriteLine("Ladunek załadowany na: "+ GetNumerSeryjny());
+        Console.WriteLine("Ladunek załadowany na: " + GetNumerSeryjny());
     }
+    
 }

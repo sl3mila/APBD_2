@@ -19,7 +19,7 @@ public class KontenerChlodniczy(int numerSeryjny, double wysokosc, double wagaWl
     {
         base.Info();
         Console.WriteLine("Rodzaj przeworzonego produktu: " + RodzajProduktu +
-                          "\nTemperatura: " + Temperatura);
+                          "\nTemperatura: " + Temperatura + "\n");
     }
 
     public void Zaladuj(double ladunek, Produkt produkt)

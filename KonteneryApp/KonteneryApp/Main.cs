@@ -22,22 +22,22 @@ KontenerChlodniczy kChlodniczy = new KontenerChlodniczy(124, 285, 300, 11000, 10
 
 try
 {
-    kPlyny.Zaladuj(600);
+    kPlyny.Zaladuj(600.0);
     //kPlyny.Zaladuj(300);
     kPlyny.Oproznienie();
-    kPlyny.Zaladuj(600);
+    kPlyny.Zaladuj(600.0);
 
-    kGaz.Zaladuj(60);
+    kGaz.Zaladuj(60.0);
     //kGaz.Zaladuj(50);
     kGaz.Oproznienie();
-    kGaz.Zaladuj(64);
+    kGaz.Zaladuj(64.0);
 
     //kChlodniczy.Zaladuj(900, jaja);
 
-    kChlodniczy.Zaladuj(200, jaja);
+    kChlodniczy.Zaladuj(200.0, jaja);
     kChlodniczy.Oproznienie();
-    kChlodniczy.Zaladuj(900, maslo);
-    kChlodniczy.Zaladuj(900, jaja);
+    kChlodniczy.Zaladuj(900.0, maslo);
+    kChlodniczy.Zaladuj(900.0, jaja);
 }
 catch (OverfillException e)
 {

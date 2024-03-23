@@ -14,7 +14,7 @@ public class KontenerNaGaz(int numerSeryjny, double wysokosc, double wagaWlasna,
     public void Info()
     {
         base.Info();
-        Console.WriteLine("Cisnienie: " + Cisnienie);
+        Console.WriteLine("Cisnienie: " + Cisnienie + "\n");
     }
 
     public void Niebezpiecznie()
@@ -24,7 +24,7 @@ public class KontenerNaGaz(int numerSeryjny, double wysokosc, double wagaWlasna,
     
     public void Oproznienie()
     {
-        Masa = Masa*0.05;
+        Masa *= 0.05;
         Console.WriteLine("Kontener "+ GetNumerSeryjny() + " opróżniony");
 
     } 

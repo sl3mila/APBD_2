@@ -1,8 +1,10 @@
 ﻿namespace KonteneryApp;
 
-public class KontenerNaPlyny : Kontener, IHazardNotifier
+public class KontenerNaPlyny(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc,
+    double maxLad, bool niebezpieczny) 
+    : Kontener(numerSeryjny, wysokosc, wagaWlasna, glebokosc, maxLad), IHazardNotifier
 {
-    private bool niebezpieczny;
+    private bool Niebezpieczny = niebezpieczny;
     public override string GetNumerSeryjny()
     {
         return "KON-L-" + numerSeryjny;
@@ -12,23 +14,16 @@ public class KontenerNaPlyny : Kontener, IHazardNotifier
     {
         Console.WriteLine("Niebezpieczna sytuacją w kontenarze o numerze: " + GetNumerSeryjny());
     }
-
-    public KontenerNaPlyny(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc,
-        double maxLad, bool niebezpieczny)
-        : base(numerSeryjny,  wysokosc, wagaWlasna, glebokosc, maxLad)
-    {
-        this.niebezpieczny = niebezpieczny;
-    }
     
     public void Info()
     {
         base.Info();
-        Console.WriteLine("Ładunek jest niebezpieczny: " + niebezpieczny);
+        Console.WriteLine("Ładunek jest niebezpieczny: " + Niebezpieczny);
     }
 
     public void Zaladuj(double ladunek)
     {
-        if (niebezpieczny)
+        if (Niebezpieczny)
         {
             if (maxLad * 0.5 < ladunek)
             {

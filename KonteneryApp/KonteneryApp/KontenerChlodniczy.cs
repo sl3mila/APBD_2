@@ -2,38 +2,33 @@
 
 namespace KonteneryApp;
 
-public class KontenerChlodniczy : Kontener
+public class KontenerChlodniczy(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc,
+    double maxLad, string rodzajProdukt, double temperatura)  
+    : Kontener(numerSeryjny, wysokosc, wagaWlasna, glebokosc, maxLad)
 {
-    private string rodzajProduktu;
-    private double temperatura;
+    private string RodzajProduktu { get; } = rodzajProdukt;
+    private double Temperatura { get; }= temperatura;
     
     public override string GetNumerSeryjny()
     {
         return "KON-C-" + numerSeryjny;
     }
-
-    public KontenerChlodniczy(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc,
-        double maxLad, string rodzajProdukt, double temperatura) 
-        : base(numerSeryjny,  wysokosc, wagaWlasna, glebokosc, maxLad)
-    {
-        this.rodzajProduktu = rodzajProdukt;
-        this.temperatura = temperatura;
-    }
+    
 
     public void Info()
     {
         base.Info();
-        Console.WriteLine("Rodzaj przeworzonego produktu: " + rodzajProduktu +
-                          "\nTemperatura: " + temperatura);
+        Console.WriteLine("Rodzaj przeworzonego produktu: " + RodzajProduktu +
+                          "\nTemperatura: " + Temperatura);
     }
 
     public void Zaladuj(double ladunek, Produkt produkt)
     {
         if (czyOdpowiedniTyp_Temperatura(produkt))
         {
-            if (ladunek <= maxLad)
+            if (ladunek <= MaxLad)
             {
-                masa += ladunek;
+                Masa += ladunek;
                 Console.WriteLine("Ladunek zaladowany na: "+ GetNumerSeryjny());
 
             }
@@ -46,7 +41,7 @@ public class KontenerChlodniczy : Kontener
     
     private bool czyOdpowiedniTyp_Temperatura(Produkt produkt) //TODO
     {
-        if (rodzajProduktu != produkt.GetNazwa() || 
+        if (RodzajProduktu != produkt.GetNazwa() || 
             temperatura < produkt.GetTemperatura() )
         {
             return false;

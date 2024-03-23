@@ -1,25 +1,20 @@
 ﻿namespace KonteneryApp;
 
-public class KontenerNaGaz : Kontener, IHazardNotifier
+public class KontenerNaGaz(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, 
+    double maxLad, double cisnienie) 
+    : Kontener(numerSeryjny, wysokosc, wagaWlasna, glebokosc, maxLad), IHazardNotifier
 {
-    private double cisnienie;
+    private double Cisnienie { get; } = cisnienie;
     
     public override string GetNumerSeryjny()
     {
         return "KON-G-" + numerSeryjny;
     }
-
-    public KontenerNaGaz(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, 
-        double maxLad, double cisnienie) 
-        : base(numerSeryjny, wysokosc, wagaWlasna, glebokosc, maxLad)
-    {
-        this.cisnienie = cisnienie;
-    }
     
     public void Info()
     {
         base.Info();
-        Console.WriteLine("Cisnienie: " + cisnienie);
+        Console.WriteLine("Cisnienie: " + Cisnienie);
     }
 
     public void Niebezpiecznie()
@@ -29,7 +24,7 @@ public class KontenerNaGaz : Kontener, IHazardNotifier
     
     public void Oproznienie()
     {
-        masa = masa*0.05;
+        Masa = Masa*0.05;
         Console.WriteLine("Kontener "+ GetNumerSeryjny() + " opróżniony");
 
     } 

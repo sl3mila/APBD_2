@@ -44,6 +44,10 @@ catch (OverfillException e)
     Console.WriteLine(e.Message);
 }
 
+kChlodniczy.Info();
+kGaz.Info();
+kPlyny.Info();
+
 statek1.ZaladujNa(kPlyny);
 statek1.ZaladujNa(kGaz);
 statek1.ZaladujNa(kChlodniczy);

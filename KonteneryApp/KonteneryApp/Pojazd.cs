@@ -1,65 +1,43 @@
 ﻿namespace KonteneryApp;
 
-public abstract class Pojazd
+public abstract class Pojazd(int maxPredkosc, int maxIloscKontenerow, double maxWagaKontenerow)
 {
-    private protected int maxPredkosc;
-    private protected int maxIloscKontenerow;
-    private protected double maxWagaKontenerow;
+    private protected int MaxPredkosc { get; } = maxPredkosc;
+    private protected int MaxIloscKontenerow { get; } = maxIloscKontenerow;
+    private protected double MaxWagaKontenerow { get; } = maxWagaKontenerow;
     
-    private protected Kontener[] kontenery;
-    private protected int iloscKontenerow = 0;
-    private protected double masa = 0;
-    
-    protected Pojazd(int maxPredkosc, int maxIloscKontenerow, double maxWagaKontenerow)
-    {
-        this.maxPredkosc = maxPredkosc;
-        this.maxIloscKontenerow = maxIloscKontenerow;
-        this.maxWagaKontenerow = maxWagaKontenerow;
-        ListaKontenerow();
-    }
-
-    private protected void ListaKontenerow()
-    {
-        kontenery = new Kontener[maxIloscKontenerow];
-    }
+    private protected List<Kontener> Kontenery { get; set; } = [];
+    private protected int IloscKontenerow { get; set; }= 0;
+    private protected double Masa { get; set; }= 0;
     
     public void ZaladujNa(Kontener kontener)
     {
-        if (masa < maxWagaKontenerow && maxIloscKontenerow < iloscKontenerow)
+        if (Masa + kontener.Masa < maxWagaKontenerow && maxIloscKontenerow <= IloscKontenerow)
         {
-            kontenery[iloscKontenerow] = kontener;
-            masa += kontener.GetMasa;
-            iloscKontenerow++;
+            Kontenery[IloscKontenerow] = kontener;
+            Masa += kontener.Masa;
+            IloscKontenerow++;
             Console.WriteLine("Kontener "+ kontener.GetNumerSeryjny() + " zaladowany");
         }
     }
 
     public void UsunZ(Kontener kontener)
     {
-        for (int i = 0; i <= iloscKontenerow; i++)
+        for (int i = 0; i <= IloscKontenerow; i++)
         {
-            if (kontener.GetNumerSeryjny().Equals(kontenery[i].GetNumerSeryjny()))
-            {
-                for (int j = i+1; j < iloscKontenerow; j++)
-                {
-                    kontenery[i] = kontenery[j];
-                    masa -= kontenery[i].GetMasa;
-                }
-                kontenery[iloscKontenerow] = null;
-                iloscKontenerow--;
-                Console.WriteLine("Kontener "+ kontener.GetNumerSeryjny() + " usunięty");
-
-            }
+            Kontenery.Remove(kontener);
+            IloscKontenerow--;
+            Console.WriteLine("Kontener "+ kontener.GetNumerSeryjny() + " usunięty");
         }
     }
 
     public void Zamien(string zmieniany, Kontener naZmiane)
     {
-        for (int i = 0; i <= iloscKontenerow; i++)
+        for (int i = 0; i <= IloscKontenerow; i++)
         {
-            if (zmieniany.Equals(kontenery[i].GetNumerSeryjny()))
+            if (zmieniany.Equals(Kontenery[i].GetNumerSeryjny()))
             {
-                kontenery[i] = naZmiane;
+                Kontenery[i] = naZmiane;
                 Console.WriteLine("Kontener zmieniony");
 
             }
@@ -79,11 +57,11 @@ public abstract class Pojazd
         Console.WriteLine("Maksymalna prędkość: " + maxPredkosc + 
                           "\nMaksymalna ilość kontenerów: " + maxIloscKontenerow +
                           "\nMaksymalna waga kontenerów: " + maxWagaKontenerow +
-                          "\nObecna załądowana masa: " + masa +
+                          "\nObecna załądowana masa: " + Masa +
                           "\nZaładowane kontenery: ");
-        for (int i = 0; i <= iloscKontenerow; i++)
+        for (int i = 0; i <= IloscKontenerow; i++)
         {
-           kontenery[i].Info();
+           Kontenery[i].Info();
         }
     }
 }

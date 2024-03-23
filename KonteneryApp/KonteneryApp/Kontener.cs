@@ -1,48 +1,39 @@
-﻿namespace KonteneryApp;
+﻿
+namespace KonteneryApp;
 
-public abstract class Kontener
+public abstract class Kontener(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, double maxLad)
 {
-    private protected int numerSeryjny;
+    private protected int numerSeryjny = numerSeryjny;
     public abstract string GetNumerSeryjny();
 
-    private protected double masa = 0;
-    private protected double wysokosc;
-    private protected double wagaWlasna;
-    private protected double glebokosc;
-    private protected double maxLad;
-
-    public double GetMasa;
-    
-    public Kontener(int numerSeryjny, double wysokosc, double wagaWlasna, double glebokosc, double maxLad)
-    {
-        this.numerSeryjny = numerSeryjny;
-        this.wysokosc = wysokosc;
-        this.wagaWlasna = wagaWlasna;
-        this.glebokosc = glebokosc;
-        this.maxLad = maxLad;
-    }
+    public double Masa { get; set; } = 0;
+    private protected double Wysokosc { get; } = wysokosc;
+    private protected double WagaWlasna { get; } = wagaWlasna;
+    private protected double Glebokosc { get; } = glebokosc;
+    private protected double MaxLad { get; } = maxLad;
 
     public void Info()
     {
         Console.WriteLine("Nunmer seryjny kontenera: " + GetNumerSeryjny() + 
-                          "\nWysokosc: " + wysokosc +
-                          "\nWaga własna: " + wagaWlasna +
-                          "\nGłębokość: " + glebokosc +
-                          "\nMaksymalny waga ładunku: " + maxLad);
+                          "\nWysokosc: " + Wysokosc +
+                          "\nWaga własna: " + WagaWlasna +
+                          "\nGłębokość: " + Glebokosc +
+                          "\nMaksymalny waga ładunku: " + MaxLad + 
+                            "\nMasa ładunku: " + Masa );
     }
 
     public void Oproznienie()
     {
-        masa = 0;
+        Masa = 0;
         Console.WriteLine("Kontener "+ GetNumerSeryjny() + " opróżniony");
 
     }
 
     public void Zaladuj(double ladunek)
     {
-        if (ladunek + masa <= maxLad)
+        if (ladunek + Masa <= maxLad)
         {
-            masa += ladunek;
+            Masa += ladunek;
             Console.WriteLine("Ladunek załadowany na: "+ GetNumerSeryjny());
 
         }

@@ -32,14 +32,14 @@ public abstract class Kontener
                             "\nMasa ładunku: " + Masa);
     }
 
-    public virtual void Oproznienie()
+    public void Oproznienie()
     {
         Masa = 0;
         Console.WriteLine("Kontener "+ GetNumerSeryjny() + " opróżniony");
 
     }
 
-    public virtual void Zaladuj(double ladunek)
+    public void Zaladuj(double ladunek)
     {
         if (ladunek + Masa > MaxLad)
         {

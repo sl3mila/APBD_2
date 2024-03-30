@@ -16,9 +16,7 @@ namespace LegacyApp
                 return false;
             }
 
-            var now = DateTime.Now;
-            int age = now.Year - dateOfBirth.Year;
-            if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
+            var age = GetAgeByDate(dateOfBirth);
 
             if (UnderAge(age))
             {
@@ -59,6 +57,14 @@ namespace LegacyApp
             return true;
         }
 
+        private static int GetAgeByDate(DateTime dateOfBirth)
+        {
+            var now = DateTime.Now;
+            int age = now.Year - dateOfBirth.Year;
+            if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
+            return age;
+        }
+
         private static bool HasCreditLimitUnder500(User user)
         {
             return user.HasCreditLimit && user.CreditLimit < 500;
@@ -76,6 +82,7 @@ namespace LegacyApp
 
         private static void SetCreditLimitToTimes2(User user)
         {
+            user.HasCreditLimit = true;
             using (var userCreditService = new UserCreditService())
             {
                 int creditLimit = userCreditService.GetCreditLimit(user.LastName, user.DateOfBirth);

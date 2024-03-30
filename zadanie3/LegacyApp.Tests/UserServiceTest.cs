@@ -1,6 +1,5 @@
 ﻿using System;
 using JetBrains.Annotations;
-using LegacyApp;
 using Xunit;
 
 namespace LegacyApp.Tests;
@@ -104,13 +103,13 @@ public class UserServiceTest
     }
     
     [Fact]
-    public void AddUser_Should_Return_False_If_()
+    public void AddUser_Should_Return_False_If_Credit_Limit()
     {
         // Arrange - przytowanie zależności do testu
         var userService = new UserService();
         
         // Act - wywołanie testowanej funkcjonalności
-        var addResult = userService.AddUser("John", "Doe", "johndoe@gmail.com", DateTime.Parse("2005-03-21"), 1);
+        var addResult = userService.AddUser("John", "Doe", "johndoe@gmail.com", DateTime.Parse("2005-03-21"), 2);
         
         // Assert - sprawdzenie wyniku
         Assert.False(addResult);

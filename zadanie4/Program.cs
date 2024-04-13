@@ -25,52 +25,80 @@ app.UseHttpsRedirection();
 app.MapGet("/animals", (IMockDb mockDb) =>
 {
     return Results.Ok(mockDb.GetAllAnimals());
-});
+}).WithName("GetAllAnimals");
 
-app.MapGet("/animals/{id}", (IMockDb mockDb, int id) =>
+app.MapGet("/animals/{id:int}", (IMockDb mockDb, int id) =>
 {
     var animal = mockDb.GetAnimalById(id);
-    if (animal is null) return Results.NotFound();
+    if (animal == null)
+    {
+        return Results.NotFound();
+    }
     
     return Results.Ok(animal);
-});
+}).WithName("GetAnimalsById");
 
-app.MapPost("/animals/{id}", (IMockDb mockDb, int id) =>
+app.MapPost("/animals/{id:int}", (IMockDb mockDb, int id) =>
 {
     var animal = mockDb.GetAnimalById(id);
-    if (animal is null) return Results.NotFound();
+    if (animal == null)
+    {
+        return Results.NotFound();
+    }
     
     mockDb.AddAnimal(animal);
-    return Results.Created();
+    return Results.StatusCode(StatusCodes.Status201Created);
     
-});
+}).WithName("AddAnimal");
 
 //TODO dodać edycje zwierzęcia
+app.MapPut("/animals/{id:int}", (IMockDb mockDb, int id, Animal animal) =>
+    {
+        var animalToEdit = mockDb.GetAnimalById(id);
+        if (animalToEdit == null)
+        {
+            return Results.NotFound();
+        }
+        
+        mockDb.EditAnimal(animalToEdit, animal);
+        
+        return Results.NoContent();
+    }).WithName("EditAnimal");
 
-app.MapDelete("/animals/{id}", (IMockDb mockDb, int id) =>
+app.MapDelete("/animals/{id:int}", (IMockDb mockDb, int id) =>
 {
     var animal = mockDb.GetAnimalById(id);
-    if (animal is null) return Results.NotFound();
+    if (animal == null)
+    {
+        return Results.NoContent();
+    }
     
     mockDb.DeleteAnimal(animal);
-    return Results.Ok("Deleted");    
-});
+    return Results.NoContent();    
+}).WithName("GetAnimalById");
 
-app.MapPost("/animals", (IMockDb mockDb, Visit visit) =>
+app.MapPost("/visits", (IMockDb mockDb, Visit visit) =>
 {
     mockDb.AddVisit(visit);
     return Results.Created();
-});
+}).WithName("AddVisit");
 
-app.MapGet("/animals/{id}", IResult (IMockDb mockDb, int id) =>
+app.MapGet("/visits/{idAnimal:int}", IResult (IMockDb mockDb, int idAnimal) =>
 {
-    var animal = mockDb.GetAnimalById(id);
+    var animal = mockDb.GetAnimalById(idAnimal);
+    if (animal == null)
+    {
+        return Results.NoContent();
+    }
     
     var list = mockDb.GetVisitsOf(animal);
-    if (list is null) return Results.NotFound();
+    if (list.Count < 1)
+    {
+        return Results.NotFound();
+    }
 
     return Results.Ok(list);
-});
+}).WithName("GetVisitOf");
 
 app.MapControllers();
 app.Run();

@@ -25,7 +25,7 @@ public interface IMockDb
     public ICollection<Animal> GetAllAnimals();
     public Animal? GetAnimalById(int id);
     public void AddAnimal(Animal animal);
-    public void EditAnimal(int id, string newName, double newMass, string newFurrColor);
+    public void EditAnimal(Animal animalToEdit, Animal newAnimal);
     public void DeleteAnimal(Animal animal);
 
     //visits
@@ -87,11 +87,10 @@ public class MockDb : IMockDb
         _animals.Add(animal);
     }
 
-    public void EditAnimal(int id, string newName, double newMass, string newFurrColor)
+    public void EditAnimal(Animal animalToEdit, Animal newAnimal)
     {
-        _animals.FirstOrDefault(a => a.Id == id).Name = newName;
-        _animals.FirstOrDefault(a => a.Id == id).Mass = newMass;
-        _animals.FirstOrDefault(a => a.Id == id).FurrColor = newFurrColor;
+        _animals.Remove(animalToEdit);
+        _animals.Add(newAnimal);
     }
 
     public void DeleteAnimal(Animal animal)

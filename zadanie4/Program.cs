@@ -51,7 +51,6 @@ app.MapPost("/animals/{id:int}", (IMockDb mockDb, int id) =>
     
 }).WithName("AddAnimal");
 
-//TODO dodać edycje zwierzęcia
 app.MapPut("/animals/{id:int}", (IMockDb mockDb, int id, Animal animal) =>
     {
         var animalToEdit = mockDb.GetAnimalById(id);

@@ -24,7 +24,7 @@ public class Service(IConfiguration configuration) : IService
         return connection;
     }
 
-    public async Task<GetGroupDTO?> GetGroupDetailsByIdAsync(int id)
+    public async Task<GetGroupDTO?> GetGroupDetailsByIdAsync(int id)    //get
     { 
         await using var connection = await GetConnection();
         
@@ -40,11 +40,50 @@ public class Service(IConfiguration configuration) : IService
         
         while (await reader.ReadAsync())
         {
-            //result.Students.Add(reader.GetInt32(2));
+            //result.DatabaseKlass.Add(reader.GetInt32(2));
             
         }
 
         return /*result*/ null;
+    }
+    
+    public async Task<bool> RemoveStudent(int id)   //delete
+    {
+        await using var connection = await GetConnection();
+        await using var transaction = connection.BeginTransaction();
+
+        try
+        {
+            var command1 = new SqlCommand();
+            command1.Connection = connection;
+            command1.CommandText = """
+                                    DELETE FROM GroupAssignments
+                                   WHERE Student_ID = @id;
+                                   """; //sql command in
+
+            command1.Parameters.AddWithValue("@id", id); //parametry do zmiany
+            var reader = await command1.ExecuteReaderAsync();
+
+            var command2 = new SqlCommand();
+            command2.Connection = connection;
+            command2.CommandText = """
+                                   DELETE FROM Students
+                                          WHERE ID = @id;
+                                   """;
+
+            command2.Transaction = (SqlTransaction)transaction;
+            command2.Parameters.AddWithValue("@id", id);
+            var affectedRows = await command2.ExecuteNonQueryAsync();
+
+            await transaction.CommitAsync();
+
+            return affectedRows != 0;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
     
     //metody 

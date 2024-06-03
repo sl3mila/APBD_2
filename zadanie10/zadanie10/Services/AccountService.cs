@@ -10,7 +10,7 @@ public interface IAccountService
     Task<GetAccountResponceModel> GetAccountIdAsync(int id);
 }
 
-public class AccountServoce(DatabaseContext context) : IAccountService
+public class AccountService(DatabaseContext context) : IAccountService
 {
     public async Task<GetAccountResponceModel> GetAccountIdAsync(int id)
     {

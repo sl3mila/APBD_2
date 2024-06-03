@@ -13,4 +13,6 @@ public class Category
     [MaxLength(100)]
     [Column("name")]
     public string CategoryName { get; set; }
+    
+    public IEnumerable<ProductsCategory> ProductsCategories { get; set; }
 }

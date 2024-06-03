@@ -28,4 +28,6 @@ public class Account
     [MaxLength(9)]
     [Column("phone")]
     public string AccountPhone { get; set; }
+    
+    public IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
 }

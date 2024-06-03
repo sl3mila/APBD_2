@@ -25,4 +25,8 @@ public class Product
     
     [Column("depth")]
     public double ProductDepth { get; set; }
+    
+    public IEnumerable<ProductsCategory> ProductsCategories { get; set; }
+
+    public IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
 }

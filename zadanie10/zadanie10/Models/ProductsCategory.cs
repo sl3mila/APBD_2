@@ -7,10 +7,16 @@ namespace zadanie10.Models;
 public class ProductsCategory
 {
     [Key]
-    [ForeignKey("FK_product")]
+    [Column("FK_product")]
+    [ForeignKey("Product")]
     public int ProductsCategoryProduct { get; set; }
     
+    public Product Product { get; set; }
+    
     [Key]
-    [ForeignKey("FK_category")]
+    [Column("FK_category")]
+    [ForeignKey("Category")]
     public int ProductsCategoryCategory { get; set; }
+    
+    public Category Category { get; set; }
 }

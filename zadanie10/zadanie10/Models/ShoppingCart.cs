@@ -7,14 +7,18 @@ namespace zadanie10.Models;
 public class ShoppingCart
 {
     [Key]
-    [ForeignKey("FK_account")]
-    //[Column("FK_account")]
+    [Column("FK_account")]
+    [ForeignKey("Account")]
     public int ShoppingCartAccount { get; set; }
     
+    public Account Account { get; set; }
+    
     [Key]
-    [ForeignKey("FK_product")]
-    //[Column("FK_product")]
+    [Column("FK_product")]
+    [ForeignKey("Product")]
     public int ShoppingCartProduct { get; set; }
+    
+    public Product Product { get; set; }
     
     [Column("amount")]
     public int ShoppingCartAmount { get; set; }

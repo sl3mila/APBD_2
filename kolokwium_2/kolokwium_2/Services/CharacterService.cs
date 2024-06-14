@@ -64,13 +64,6 @@ public class CharacterService : ICharacterService
     public Task<GetBackpackSlotResponseModel> AddItemsTobackpack(int characterId, List<int> list)
     {
 
-        for (int i = 0; i < list.Capacity; i++)
-        {
-            
-        }
-
-        var maxWeigth = 0;
-        
         var character = await _context.Characters
             .Where(a => a.CharacterId == characterId)
             .Select(a => new GetCharacterResponseModel()
@@ -91,15 +84,32 @@ public class CharacterService : ICharacterService
                     }),
                 
             }).FirstOrDefaultAsync();
+
+        if (character is null)
+        {
+            throw new NotFoundException("character not found");
+        }
         
-        var item = await _context.Items
-            .Where(a => a.ItemId == characterId)
-            .Select(a => new GetItemResponseModel()
+        for (int i = 0; i < list.Capacity; i++)
+        {
+            var item = await _context.Items
+                .Where(a => a.ItemId == i)
+                .Select(a => new GetItemResponseModel()
+                {
+                    ItemId = a.ItemId,
+                    ItemName = a.ItemName,
+                    ItemWeight = a.ItemWeight
+                }).FirstOrDefaultAsync();
+
+            if (item is null)
             {
-                
-                
-            }).FirstOrDefaultAsync();
-        if (character.CharacterMaxWeihght < character.CharacterCurrentWeight + )
+                throw new NotFoundException("character not found");
+            }
+            
+            
+        }
+        
+        
         
         throw new NotImplementedException();
     }

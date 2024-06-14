@@ -1,4 +1,5 @@
 using kolokwium_2.Context;
+using kolokwium_2.Exceptions;
 using kolokwium_2.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IExampleTableClassService, ExampleTableClassService>();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
+//builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddDbContext<DatabaseContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -25,16 +27,28 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-/*app.MapGet("/api/accounts/{accountId:int}", async (int id, IAccountService service) =>
+app.MapGet("/api/characters/{characterId:int}", async (int id, ICharacterService service) =>
 {
     try
     {
-        return Results.Ok(await service.GetAccountIdAsync(id));
+        return Results.Ok(await service.GetCharacterId(id));
     }
     catch (NotFoundException e)
     {
         return Results.NotFound(e.Message);
     }
-});*/
+});
+
+app.MapPost("/api/character/{characterId:int}/backpackslots", async (int Characteristics, List<int> list, ICharacterService service) =>
+{
+    /*try
+    {
+        return Results.Ok(await service.GetCharacterId(id));
+    }
+    catch (NotFoundException e)
+    {
+        return Results.NotFound(e.Message);
+    }*/
+});
 
 app.Run();

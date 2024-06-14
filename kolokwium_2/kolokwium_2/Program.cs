@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IExampleTableClassService, ExampleTableClassService>();
 builder.Services.AddDbContext<DatabaseContext>(opt =>
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
